@@ -61,3 +61,4 @@ Comment
 
 ### 🙌 Team Members 
 | 이채연 <br/> [@dkin12](https://github.com/dkin12) | 김대영 <br/> [@dae0kim](https://github.com/dae0kim) | 권소령 <br/> [@SoRrrrrrr](https://github.com/SoRrrrrrr) | 박근모 <br/> [@GM-Park](https://github.com/GM-Park) |
+|:--:|:--:|:--:|:--:|
