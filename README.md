@@ -2,7 +2,7 @@
 
 ## 💡 프로젝트 개요: 밸런스 게임 투표 시스템
 
-사용자는 투표하고 댓글을 남길 수 있고, 관리자는 새 밸런스 게임을 등록·수정·삭제하면서 투표율 통계를 확인할 수 있는 서비스.
+사용자는 투표하고 댓글을 남길 수 있고, 관리자는 새 밸런스 게임을 등록·수정·삭제하면서 투표율 통계를 확인할 수 있는 서비스
 
 ##  🧱 프로젝트 주요기능 
 
@@ -57,3 +57,7 @@ Comment
  └─ updated_at
 
 ```
+
+
+### 🙌 Team Members 
+| 이채연 <br/> [@dkin12](https://github.com/dkin12) | 김대영 <br/> [@dae0kim](https://github.com/dae0kim) | 권소령 <br/> [@SoRrrrrrr](https://github.com/SoRrrrrrr) | 박근모 <br/> [@GM-Park](https://github.com/GM-Park) |
