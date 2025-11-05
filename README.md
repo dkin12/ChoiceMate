@@ -6,57 +6,41 @@
 
 ##  🧱 프로젝트 주요기능 
 
-### 👤 사용자 기능
 
-| 기능           | 설명                | CRUD      |
-| ------------ | ----------------- | --------- |
-| 밸런스 게임 목록 보기 | 등록된 게임들 목록        | **R**     |
-| 투표하기         | ①번 or ②번 선택       | **C / U** |
-| 투표율 보기       | 각 선택지의 비율 시각화     | **R**     |
-| 댓글 작성        | 각 밸런스 게임 밑에 댓글 작성 | **C**     |
-| 댓글 수정/삭제     | 본인 댓글만 가능         | **U / D** |
-
-### 🛠 관리자 기능
-
-| 기능        | 설명               | CRUD  |
-| --------- | ---------------- | ----- |
-| 밸런스 게임 등록 | 예: “짜장 vs 짬뽕”    | **C** |
-| 밸런스 게임 수정 | 텍스트나 이미지 수정      | **U** |
-| 밸런스 게임 삭제 | 오래된 게임 삭제        | **D** |
-| 통계 보기     | 각 게임별 투표율, 참여자 수 | **R** |
+| 구분       | 기능                        | 설명                                |
+| -------- | ------------------------- | --------------------------------- |
+| 📜 메인 화면| 게시글 상세 보기                 | 제목, 내용, 선택지 A/B, 투표현황, 댓글 표시      |
+| 🎯 투표    | 선택지 A 또는 B 클릭 시 해당 카운트 증가 | Post 테이블의 `votes_a`, `votes_b` 증가 |
+| 💬 댓글    | 댓글 작성                     | 이름, 비밀번호, 내용 입력하여 댓글 추가           |
+|          | 댓글 수정                     | 본인 비밀번호 검증 후 수정 가능                |
+|          | 댓글 삭제                     | 본인 비밀번호 검증 후 삭제 가능                |
 
 
-```
-User
- ├─ id (PK)
- ├─ username
- ├─ password
- └─ role (user / admin)
+## POST 
 
-Game
- ├─ id (PK)
- ├─ title (예: 짜장 vs 짬뽕)
- ├─ option_a
- ├─ option_b
- ├─ created_at
- ├─ created_by (FK → User.id)
+| 컬럼명          | 타입           | 제약조건                        | 설명        |
+| ------------ | ------------ | --------------------------- | --------- |
+| `id`         | BIGINT       | PK, AUTO_INCREMENT          | 게시글 고유 ID |
+| `title`      | VARCHAR(200) | NOT NULL                    | 제목        |
+| `content`    | TEXT         |                             | 게시글 내용    |
+| `option_a`   | VARCHAR(200) | NOT NULL                    | 선택지 A     |
+| `option_b`   | VARCHAR(200) | NOT NULL                    | 선택지 B     |
+| `votes_a`    | INT          | DEFAULT 0                   | 선택지 A 투표수 |
+| `votes_b`    | INT          | DEFAULT 0                   | 선택지 B 투표수 |
+| `created_at` | DATETIME     | DEFAULT CURRENT_TIMESTAMP   | 등록일       |
+| `updated_at` | DATETIME     | ON UPDATE CURRENT_TIMESTAMP | 수정일       |
 
-Vote
- ├─ id (PK)
- ├─ user_id (FK → User.id)
- ├─ game_id (FK → Game.id)
- ├─ choice (A or B)
- ├─ voted_at
 
-Comment
- ├─ id (PK)
- ├─ user_id (FK → User.id)
- ├─ game_id (FK → Game.id)
- ├─ content
- ├─ created_at
- └─ updated_at
-
-```
+## Comment 
+| 컬럼명          | 타입           | 제약조건                        | 설명                 |
+| ------------ | ------------ | --------------------------- | ------------------ |
+| `id`         | BIGINT       | PK, AUTO_INCREMENT          | 댓글 ID              |
+| `post_id`    | BIGINT       | FK → `Post.id`              | 댓글이 달린 게시글         |
+| `name`       | VARCHAR(50)  | NOT NULL                    | 작성자 이름             |
+| `password`   | VARCHAR(255) | NOT NULL                    | 비밀번호 (수정/삭제 시 검증용) |
+| `content`    | TEXT         | NOT NULL                    | 댓글 내용              |
+| `created_at` | DATETIME     | DEFAULT CURRENT_TIMESTAMP   | 작성일                |
+| `updated_at` | DATETIME     | ON UPDATE CURRENT_TIMESTAMP | 수정일                |
 
 
 ### 🙌 Team Members 
