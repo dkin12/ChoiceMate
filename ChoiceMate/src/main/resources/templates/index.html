@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>これとそれ</title>
+    <title th:text="#{index.001}"></title>
     <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sketchy/bootstrap.min.css">
 </head>
 
@@ -12,76 +12,96 @@
 <div class="container my-5" style="max-width: 800px;">
     <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#index">これとそれ</a>
+            <a class="navbar-brand" href="#index" th:text="#{index.001}"></a>
         </div>
-
     </nav>
 
-    <h2 class="mb-1"> 상상 초월의 능력 vs 무한한 행운 </h2>
+    <!-- 제목 -->
+    <h2 class="mb-1" th:text="${post.title}"></h2>
     <hr class="my-3">
 
-
+    <!-- 내용 -->
     <div class="content-body mb-5" style="min-height: 100px;">
-        <p>내용입니다ㅓㅓ</p>
+        <p th:text="${post.content}"></p>
     </div>
 
+    <!-- 투표 -->
     <div class="voting-section mb-5">
-        <h5 class="mb-3">투표하기</h5>
-
+        <h5 class="mb-3" th:text="#{index.002}"></h5>
+        <!-- 옵션 A -->
         <div class="form-check mb-2">
             <input class="form-check-input" type="radio" name="voteOption" id="optionA">
-            <label class="form-check-label" for="optionA" style="color: #f0ad4e;">
-                원하는 대로 세상을 바꿀 수 있는 초능력. (단, 능력을 사용하는 순간마다 극심한 피로를 느낌)
-            </label>
+            <label class="form-check-label" for="optionA" style="color: #f0ad4e;" th:text="${post.optionA}"></label>
         </div>
-
+        <!-- 옵션 B -->
         <div class="form-check mb-3">
             <input class="form-check-input" type="radio" name="voteOption" id="optionB">
-            <label class="form-check-label" for="optionB" style="color: #5cb85c;">
-                평생 원하는 모든 일이 척척 풀리는 무한한 행운. (단, 행운이 없는 다른 사람을 도울 수는 없음)
-            </label>
+            <label class="form-check-label" for="optionB" style="color: #5cb85c;" th:text="${post.optionB}"></label>
         </div>
-
+        <!-- 투표 버튼-->
         <div class="text-end">
-            <button class="btn btn-success rounded-pill px-4">투표하기</button>
+            <button class="btn btn-success rounded-pill px-4" th:text="#{index.002}"></button>
         </div>
     </div>
 
     <hr class="my-4">
-
+    <!-- 댓글 -->
     <div class="comment-section">
-        <h5 class="mb-3">
-            댓글 <span class="badge bg-dark ms-1">0</span>
+        <h5 class="mb-3" th:text="#{index.005}">
+            <!-- 댓글 수 -->
+            <span class="badge bg-dark ms-1" th:text="${#lists.size(post.comments)}"></span>
         </h5>
-
+        <!-- 댓글 입력 -->
         <form action="/comment" method="post">
             <div class="mb-2">
-                <textarea class="form-control" id="commentContent" rows="4" placeholder="댓글을 입력하세요."></textarea>
+                <textarea class="form-control" id="commentContent" rows="4" th:placeholder="#{index.006}"></textarea>
             </div>
 
             <div class="row g-2 align-items-center">
+                <!-- 아이디 -->
                 <div class="col-auto">
-                    <label for="commentUser" class="form-label mb-0"><b>아이디</b></label>
+                    <label for="commentUser" class="form-label mb-0"><b th:text="#{index.007}"></b></label>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control form-control-sm" id="commentUser" placeholder="아이디를 입력하세요.">
+                    <input type="text" class="form-control form-control-sm" id="commentUser" th:placeholder="#{index.008}">
                 </div>
+                <!-- 비밀번호 -->
                 <div class="col-auto">
-                    <label for="commentPassword" class="form-label mb-0"><b>비밀번호</b></label>
+                    <label for="commentPassword" class="form-label mb-0"><b th:text="#{index.009}"></b></label>
                 </div>
                 <div class="col">
-                    <input type="password" class="form-control form-control-sm" id="commentPassword" placeholder="비밀번호를 입력하세요.">
+                    <input type="password" class="form-control form-control-sm" id="commentPassword" th:placeholder="#{index.010}">
                 </div>
+                <!-- 댓글 등록 버튼 -->
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-dark btn-sm px-4">등록</button>
+                    <button type="submit" class="btn btn-dark btn-sm px-4" th:text="#{index.011}"></button>
                 </div>
             </div>
         </form>
+        <!-- 댓글 출력 -->
+        <div class="comment-list mt-4">
+            <!-- 댓글이 없을 때 -->
+            <div th:if="${#lists.isEmpty(post.comments)}" class="text-center text-muted py-5">
+                <p class="mb-0" th:text="#{index.011}"></p>
+                <p th:text="#{index.013}"></p>
+            </div>
 
-        <div class="comment-list text-center text-muted py-5">
+            <!-- 댓글이 있으면 리스트 출력 -->
+            <div th:if="${!#lists.isEmpty(post.comments)}">
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="comment : ${post.comments}">
+                        <div>
+                            <b th:text="${comment.name}"></b>
+                        </div>
+                        <p th:text="${comment.content}" class="mb-0"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="comment-list text-center text-muted py-5">
             <p class="mb-0">아직 댓글이 없어요.</p>
             <p>가장 먼저 댓글을 남겨보세요.</p>
-        </div>
+        </div>-->
     </div>
 
 </div>
