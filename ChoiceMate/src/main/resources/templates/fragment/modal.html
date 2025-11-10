@@ -5,7 +5,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      <form th:action="@{/comment/delete}" method="POST" class="needs-validation" novalidate>
+        <form id="deleteForm" class="needs-validation" novalidate>
         <div class="modal-header">
           <h5 class="modal-title" id="deleteModalLabel" th:text="#{index.024} + #{index.019}"></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -14,13 +14,14 @@
         <div class="modal-body">
           <p th:text="#{index.017}"></p>
 
-          <div th:if="${deleteError}" class="alert alert-danger" role="alert">
+            <div class="alert alert-danger d-none" role="alert" id="deleteError">
             <span th:text="#{index.021}" ></span>
           </div>
 
           <div class="mb-3">
             <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요." required>
             <div class="invalid-feedback" th:text="#{index.016}"></div>
+              <div class="text-danger small mt-1 d-none wrong-password-msg">비밀번호가 일치하지 않습니다.</div>
           </div>
 
           <input type="hidden" name="commentId" id="deleteModalCommentId" value="">
@@ -42,14 +43,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      <form th:action="@{/comment/edit}" method="POST" class="needs-validation" novalidate>
+        <form id="editForm" class="needs-validation" novalidate>
         <div class="modal-header">
           <h5 class="modal-title" id="editModalLabel" th:text="#{index.005}+#{index.023}"></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
-          <div th:if="${editError}" class="alert alert-danger" role="alert">
+            <div class="alert alert-danger d-none" role="alert" id="editError">
             <span th:text="#{index.021}"></span>
           </div>
 
@@ -62,6 +63,7 @@
             <label for="editModalPassword" class="form-label" th:text="#{index.009}"></label>
             <input type="password" name="password" id="editModalPassword" class="form-control" placeholder="비밀번호를 입력하세요." required>
             <div class="invalid-feedback" th:text="#{index.016}"></div>
+              <div class="text-danger small mt-1 d-none wrong-password-msg">비밀번호가 일치하지 않습니다.</div>
           </div>
 
           <input type="hidden" name="commentId" id="editModalCommentId" value="">

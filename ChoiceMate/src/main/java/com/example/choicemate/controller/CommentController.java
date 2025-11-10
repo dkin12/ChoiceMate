@@ -27,14 +27,20 @@ public class CommentController {
         return "redirect:/choicemate";
     }
 
+    // 댓글 수정
     @PutMapping("/{id}")
-    public CommentsResponseDto update(@PathVariable int id, @RequestBody CommentsRequestDto dto) {
-        Comments comments = commentService.update(id, dto.getPassword(), dto.getContent());
+    @ResponseBody
+    public CommentsResponseDto update(@PathVariable int id,
+                                      @RequestBody CommentsRequestDto dto) {
+        var comments = commentService.update(id, dto.getPassword(), dto.getContent());
         return CommentsResponseDto.fromEntity(comments);
     }
 
+    // 댓글 삭제
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id, @RequestBody CommentsRequestDto dto) {
+    @ResponseBody
+    public void delete(@PathVariable int id,
+                       @RequestBody CommentsRequestDto dto) {
         commentService.delete(id, dto.getPassword());
     }
 }

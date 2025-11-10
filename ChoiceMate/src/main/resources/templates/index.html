@@ -186,6 +186,9 @@
             if (modalForm) {
                 modalForm.classList.remove('was-validated');
             }
+
+            const wrongMsg = modalForm.querySelector('.wrong-password-msg');
+            if (wrongMsg) wrongMsg.classList.add('d-none')
         });
     }
 
@@ -219,6 +222,78 @@
             if (modalForm) {
                 modalForm.classList.remove('was-validated');
             }
+            const wrongMsg = modalForm.querySelector('.wrong-password-msg');
+            if (wrongMsg) wrongMsg.classList.add('d-none')
+        });
+    }
+    // === 4. 댓글 수정 요청 ===
+    const editForm = document.getElementById('editForm');
+    if (editForm) {
+        editForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const commentId = document.getElementById('editModalCommentId').value;
+            const content = document.getElementById('editModalContent').value;
+            const password = document.getElementById('editModalPassword').value;
+            const errorBox = document.querySelector('#editModal .alert-danger');
+
+            fetch(`/comment/${commentId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: content,
+                    password: password
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    // 성공 -> 새로고침해서 댓글 내용 다시 보여주기
+                    location.reload();
+                } else if (res.status === 403) {
+                    const wrongMsg = editForm.querySelector('.wrong-password-msg');
+                    if (wrongMsg) {
+                        wrongMsg.classList.remove('d-none');
+                    }
+                } else {
+                    alert('수정 중 오류가 발생했습니다.');
+                }
+            });
+        });
+    }
+
+    // === 5. 댓글 삭제 요청 ===
+    const deleteForm = document.getElementById('deleteForm');
+    if (deleteForm) {
+        deleteForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const commentId = document.getElementById('deleteModalCommentId').value;
+            const password = deleteForm.querySelector('input[name="password"]').value;
+            const errorBox = document.querySelector('#deleteModal .alert-danger');
+
+            fetch(`/comment/${commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    password: password
+                })
+            })
+            .then(res => {
+                if (res.ok) {
+                    location.reload();
+                } else if (res.status === 403) {
+                    const wrongMsg = deleteForm.querySelector('.wrong-password-msg');
+                    if (wrongMsg) {
+                        wrongMsg.classList.remove('d-none');
+                    }
+                } else {
+                    alert('삭제 중 오류가 발생했습니다.');
+                }
+            });
         });
     }
 </script>
