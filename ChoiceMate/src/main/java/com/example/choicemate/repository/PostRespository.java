@@ -13,7 +13,7 @@ public interface PostRespository extends JpaRepository<Post, Integer> {
         DB에 저장된 최신 데이터를 가져오도록 설정
         +
         댓글 같이 가져오도록
-     */
-    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.comments ORDER BY p.id DESC")
-    Optional<Post> findFirstByOrderByIdDesc();
+    */
+    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.comments WHERE p.id = (SELECT MAX(p2.id) FROM Post p2)")
+    Optional<Post> findLatestPostWithComments();
 }
