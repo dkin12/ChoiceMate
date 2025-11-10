@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="deleteModal" class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <form th:action="@{/comment/delete}" method="POST" class="needs-validation" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel" th:text="#{index.024} + #{index.019}"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <p th:text="#{index.017}"></p>
+
+          <div th:if="${deleteError}" class="alert alert-danger" role="alert">
+            <span th:text="#{index.021}" ></span>
+          </div>
+
+          <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요." required>
+            <div class="invalid-feedback" th:text="#{index.016}"></div>
+          </div>
+
+          <input type="hidden" name="commentId" id="deleteModalCommentId" value="">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{index.022}"></button>
+          <button type="submit" class="btn btn-dark" th:text="#{index.019}"></button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<div th:fragment="editModal" class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <form th:action="@{/comment/edit}" method="POST" class="needs-validation" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel" th:text="#{index.005}+#{index.023}"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div th:if="${editError}" class="alert alert-danger" role="alert">
+            <span th:text="#{index.021}"></span>
+          </div>
+
+          <div class="mb-3">
+            <label for="editModalContent" class="form-label" th:text="#{index.005}+#{index.023}"></label>
+            <textarea name="content" id="editModalContent" class="form-control" rows="3" required></textarea>
+            <div class="invalid-feedback" th:text="#{index.014}"></div>
+          </div>
+          <div class="mb-3">
+            <label for="editModalPassword" class="form-label" th:text="#{index.009}"></label>
+            <input type="password" name="password" id="editModalPassword" class="form-control" placeholder="비밀번호를 입력하세요." required>
+            <div class="invalid-feedback" th:text="#{index.016}"></div>
+          </div>
+
+          <input type="hidden" name="commentId" id="editModalCommentId" value="">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{index.022}"></button>
+          <button type="submit" class="btn btn-primary" th:text="#{index.025}"></button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+</html>
