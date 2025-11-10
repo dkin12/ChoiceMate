@@ -50,4 +50,10 @@ public class Comments {
     @Column(name = "updated_at")
     @Builder.Default
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    public void updateContent(String newContent) {
+        this.content = newContent;
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }
