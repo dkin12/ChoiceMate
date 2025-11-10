@@ -1,5 +1,6 @@
 package com.example.choicemate.entity;
 
+// 소령 push test
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
