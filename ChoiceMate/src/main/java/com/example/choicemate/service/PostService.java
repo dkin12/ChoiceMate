@@ -38,6 +38,4 @@ public class PostService {
         return PostDto.fromEntity(post);
     }
 
-    // Percentage 계산
-
 }
