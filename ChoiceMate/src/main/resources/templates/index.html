@@ -70,8 +70,10 @@
 
     <hr class="my-4">
     <div class="comment-section">
-        <h5 class="mb-3" th:text="#{index.005}">
-            <span class="badge bg-dark ms-1" th:text="${#lists.size(post.comments)}"></span>
+        <h5 class="mb-3">
+            <span th:text="#{index.005}"></span>
+            <span class="badge bg-primary rounded-pill ms-1"
+                  th:text="${#lists.size(post.comments)}"></span>
         </h5>
         <form class="needs-validation" action="/comment" method="post" novalidate>
             <input type="hidden" name="postId" th:value="${post.id}">
