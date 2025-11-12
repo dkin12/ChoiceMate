@@ -141,7 +141,7 @@
     </div>
 </div> <div th:replace="~{fragment/modal :: deleteModal}"></div>
 <div th:replace="~{fragment/modal :: editModal}"></div>
-
+<div th:replace="~{fragment/toast :: toastMessage}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -197,6 +197,7 @@
 
     // === 3. 수정(Edit) 모달 스크립트 ===
     var editModal = document.getElementById('editModal');
+
     if (editModal) {
         editModal.addEventListener('show.bs.modal', function (event) {
             // (1) 관련 요소들 찾기
@@ -252,8 +253,7 @@
             })
             .then(res => {
                 if (res.ok) {
-                    // 성공 -> 새로고침해서 댓글 내용 다시 보여주기
-                    location.reload();
+                    showToast("수정","수정되었습니다.");
                 } else if (res.status === 403) {
                     const wrongMsg = editForm.querySelector('.wrong-password-msg');
                     if (wrongMsg) {
@@ -287,7 +287,7 @@
             })
             .then(res => {
                 if (res.ok) {
-                    location.reload();
+                    showToast("삭제","삭제되었습니다.");
                 } else if (res.status === 403) {
                     const wrongMsg = deleteForm.querySelector('.wrong-password-msg');
                     if (wrongMsg) {
@@ -298,6 +298,24 @@
                 }
             });
         });
+    }
+
+
+    function showToast(title, message) {
+        const toastEl = document.getElementById('liveToast');
+        if (!toastEl) return; // "틀"이 없으면 중단
+
+        const toastTitleEl = toastEl.querySelector('.me-auto');
+        const toastBodyEl = toastEl.querySelector('.toast-body');
+
+        toastTitleEl.textContent = title;
+        toastBodyEl.textContent = message;
+
+        const toast = new bootstrap.Toast(toastEl, {delay: 1000}); // 3초 후 자동 닫힘
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
+        toast.show();
     }
 </script>
 
