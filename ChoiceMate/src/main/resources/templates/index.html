@@ -47,12 +47,15 @@
             <div class ="mt-3 mb-3">
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="radio" name="voteOption" id="optionA"
-                           value="A" th:disabled="${voted}" checked>
+                           value="A" th:disabled="${voted}"
+                           th:checked="${userVote == 'A' or userVote == null}">
                     <label class="form-check-label" for="optionA" th:text="${post.optionA}"></label>
                 </div>
                 <div class="form-check mb-2">
                     <input class="form-check-input" type="radio" name="voteOption" id="optionB"
-                           value="B" th:disabled="${voted}">
+                           value="B" th:disabled="${voted}"
+                            th:checked="${userVote == 'B'}"
+                    >
                     <label class="form-check-label" for="optionB" th:text="${post.optionB}"></label>
                 </div>
             </div>

@@ -27,13 +27,6 @@ public class PostController {
         model.addAttribute("voted", false);
         return "index";
     }
-    /*
-        TODO 소령
-        여기 true 가 투표 된 것
-        기본 false로 하고, 나중에 투표하면 true로 바꿔서
-        DB에서 개수 불러와서 보여주면됨
-        ps) 선택한거 값 넘겨서 라디오에 표시도 해주면 좋고,,
-     */
 
     @PostMapping("/vote")
     public String vote(@RequestParam int id, @RequestParam String voteOption, Model model) {
@@ -51,6 +44,7 @@ public class PostController {
 
         model.addAttribute("post", service.getLatestPost());
         model.addAttribute("voted", true);
+        model.addAttribute("userVote", voteOption);
         model.addAttribute("countA", countA);
         model.addAttribute("countB", countB);
         model.addAttribute("percentageA", percentageA);
