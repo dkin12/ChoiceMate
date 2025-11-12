@@ -15,7 +15,7 @@
         <p th:text="${post.content}"></p>
     </div>
 
-    <form th:action="@{/vote}" th:method="POST">
+    <form th:action="@{/choicemate/vote}" th:method="POST">
         <input type="hidden" th:name="id" th:value="${post.id}">
 
         <div class="voting-section mb-5">

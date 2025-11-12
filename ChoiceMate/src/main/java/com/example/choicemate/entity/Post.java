@@ -68,4 +68,15 @@ public class Post {
     @Builder.Default
     private List<Comments> comments = new ArrayList<>();
 
+    // -------------------- 투표 증가 메서드 ---------------------
+    public void vote_A(){
+        this.votesA++;
+        this.updatedAt = LocalDateTime.now();
+    }
+    public void vote_B(){
+        this.votesB++;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+
 }

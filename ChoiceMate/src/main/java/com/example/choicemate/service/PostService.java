@@ -4,6 +4,7 @@ import com.example.choicemate.dto.PostDto;
 import com.example.choicemate.entity.Post;
 import com.example.choicemate.repository.PostRespository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +16,20 @@ public class PostService {
 
     private final PostRespository repo;
 
+
+    // 투표
+    public PostDto vote(int id, String voteOption) {
+        Post post = repo.findById(id).orElseThrow();
+
+        if(voteOption.equals("optionA")){
+            post.vote_A();
+        }else if(voteOption.equals("optionB")){
+            post.vote_B();
+        }
+        repo.save(post);
+        return PostDto.fromEntity(post);
+    }
+
     // 가장 최신 글 + 댓글 조회
     public PostDto getLatestPost() {
          Post post = repo.findLatestPostWithComments()
@@ -22,4 +37,7 @@ public class PostService {
 
         return PostDto.fromEntity(post);
     }
+
+    // Percentage 계산
+
 }
