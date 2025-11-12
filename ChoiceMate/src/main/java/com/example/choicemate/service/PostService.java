@@ -6,6 +6,7 @@ import com.example.choicemate.repository.PostRespository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 글 CRUD, 투표 로직 구현 서비스 클래스
@@ -16,17 +17,16 @@ public class PostService {
 
     private final PostRespository repo;
 
-
     // 투표
+    @Transactional
     public PostDto vote(int id, String voteOption) {
         Post post = repo.findById(id).orElseThrow();
 
-        if(voteOption.equals("optionA")){
+        if(voteOption.equals("A")){
             post.vote_A();
-        }else if(voteOption.equals("optionB")){
+        }else if(voteOption.equals("B")){
             post.vote_B();
         }
-        repo.save(post);
         return PostDto.fromEntity(post);
     }
 
